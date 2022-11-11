@@ -1,4 +1,4 @@
-use actix_web::{ResponseError, body::BoxBody, http::StatusCode};
+use actix_web::{body::BoxBody, http::StatusCode, ResponseError};
 use sqlx::postgres::PgDatabaseError;
 use thiserror::Error;
 

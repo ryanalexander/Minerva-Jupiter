@@ -1,0 +1,69 @@
+{
+  "db": "PostgreSQL",
+  "2771a794a4aeac51ab48c90b14cb00f6e8115061a731ba7a5cda1ad352199827": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO public.\"Link\" (url)\n        VALUES ($1)\n        "
+  },
+  "ab6319733fa0b30847cc8ce30ae4acef96c5557787bb3074ad01471c0e077f6d": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "url",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "createdAt",
+          "ordinal": 2,
+          "type_info": "Timestamp"
+        },
+        {
+          "name": "updatedAt",
+          "ordinal": 3,
+          "type_info": "Timestamp"
+        },
+        {
+          "name": "lastScraped",
+          "ordinal": 4,
+          "type_info": "Timestamp"
+        },
+        {
+          "name": "scraped",
+          "ordinal": 5,
+          "type_info": "Bool"
+        },
+        {
+          "name": "siteId",
+          "ordinal": 6,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "SELECT * FROM public.\"Link\" WHERE scraped = false OR CURRENT_TIMESTAMP - \"lastScraped\" > '1 day'::interval ORDER BY scraped LIMIT 1;"
+  }
+}

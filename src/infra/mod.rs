@@ -1,2 +1,2 @@
-pub(crate) mod logging;
 pub(crate) mod error;
+pub(crate) mod logging;
