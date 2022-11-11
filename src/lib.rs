@@ -1,4 +1,5 @@
 //! Start all services required for the node.
+#![feature(const_option_ext)]
 
 use std::{net::TcpListener};
 use infra::{logging, error::AppError};
@@ -16,6 +17,8 @@ pub type DbPool = PgPool;
 pub type AppResult<T> = Result<T, AppError>;
 pub type Tx = Transaction<'static, Postgres>;
 
+pub const Version:&str = option_env!("GIT_HASH").unwrap_or("unknown");
+
 // Test page -- To be removed
 async fn test(_req: HttpRequest) -> HttpResponse { 
     let web_response = "<b>Warning:</b> mysqli::mysqli(): (HY000/1049): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''' in <b>A:\\NotPorn\\servers\\backend\\htdocs\\lib\\sql\\sql.php</b> on line <b>69</b>";
@@ -28,7 +31,7 @@ async fn test(_req: HttpRequest) -> HttpResponse {
 
 // Start a WebServer
 pub async fn run_webserver(http_listener: TcpListener, db_pool: DbPool) -> anyhow::Result<Server> {
-    logging::log_info("Starting Jupiter webserver");
+    logging::log_info(&format!("Starting Jupiter webserver build: {}", Version));
 
     let pool = web::Data::new(db_pool.clone());
     let listener = http_listener.try_clone().expect("Failed to clone HTTP listener");
