@@ -8,12 +8,14 @@ edition = "2021"
 [dependencies]
 actix-web = "4.2.1"
 anyhow = "1.0.66"
+chrono = "0.4.22"
 colored = "2.0.0"
 dotenv = "0.15.0"
 prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.3" }
 prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.3" }
 serde = "1.0.147"
-sqlx = { version = "0.6.2", features = ["runtime-tokio-rustls", "postgres"] }
+sqlx = { version = "0.6.2", features = ["runtime-tokio-rustls", "postgres", "time", "chrono"] }
+thiserror = "1.0.37"
 
 [alias]
 prisma = "run --bin prisma --"
