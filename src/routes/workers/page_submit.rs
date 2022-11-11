@@ -3,8 +3,8 @@ use serde::Serialize;
 
 use crate::DbPool;
 use crate::infra::logging;
-use crate::model::link_model::NewLink;
-use crate::{repository::link_repository, AppResult};
+
+use crate::{AppResult};
 
 pub fn query_config(cfg: &mut web::ServiceConfig) {
     cfg.service(submit_page);
