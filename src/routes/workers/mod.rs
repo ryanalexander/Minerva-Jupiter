@@ -1,2 +1,2 @@
-mod page_query;
-mod page_submit;
+pub mod page_query;
+pub mod page_submit;
