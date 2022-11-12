@@ -22,7 +22,7 @@ pub const Version:&str = option_env!("GIT_HASH").unwrap_or("unknown");
 // Test page -- To be removed
 async fn test(_req: HttpRequest) -> HttpResponse { 
     let web_response = "<b>Warning:</b> mysqli::mysqli(): (HY000/1049): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''' in <b>A:\\NotPorn\\servers\\backend\\htdocs\\lib\\sql\\sql.php</b> on line <b>69</b>";
-    if _req.query_string().contains("q") {
+    if _req.query_string().contains('q') {
         HttpResponse::Ok().content_type(ContentType::html()).body("uh oh, you found my backdoor... Please send help, they don't feed me!")
     } else {
         HttpResponse::InternalServerError().content_type(ContentType::html()).body(web_response)
@@ -33,7 +33,7 @@ async fn test(_req: HttpRequest) -> HttpResponse {
 pub async fn run_webserver(http_listener: TcpListener, db_pool: DbPool) -> anyhow::Result<Server> {
     logging::log_info(&format!("Starting Jupiter webserver build: {}", Version));
 
-    let pool = web::Data::new(db_pool.clone());
+    let pool = web::Data::new(db_pool);
     let listener = http_listener.try_clone().expect("Failed to clone HTTP listener");
 
     let server = HttpServer::new(move || {
