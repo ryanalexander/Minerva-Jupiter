@@ -1,7 +1,4 @@
-use crate::{
-    model::{link_model::Link},
-    Tx, infra::error::{DbError}
-};
+use crate::{infra::error::DbError, model::link_model::Link, Tx};
 
 /// Insert a new link into the link table
 pub async fn insert_link(tx: &mut Tx, link: String) {

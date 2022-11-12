@@ -14,7 +14,7 @@ dotenv = "0.15.0"
 prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.3" }
 prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.3" }
 serde = "1.0.147"
-sqlx = { version = "0.6.2", features = ["runtime-tokio-rustls", "postgres", "time", "chrono"] }
+sqlx = { version = "0.6.2", features = ["runtime-tokio-rustls", "postgres", "time", "chrono", "offline"] }
 thiserror = "1.0.37"
 
 [alias]

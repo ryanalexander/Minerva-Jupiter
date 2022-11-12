@@ -1,6 +1,5 @@
 use chrono::NaiveDateTime;
-use serde::{Serialize, Deserialize};
-
+use serde::{Deserialize, Serialize};
 
 /// New link
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -10,9 +9,7 @@ pub struct NewLink {
 
 impl NewLink {
     pub fn new(url: String) -> Self {
-        Self {
-            url
-        }
+        Self { url }
     }
 }
 

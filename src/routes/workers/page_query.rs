@@ -11,8 +11,9 @@ pub fn query_config(cfg: &mut web::ServiceConfig) {
 #[actix_web::get("/workers/scrape/job")]
 pub async fn request_page(db: web::Data<DbPool>) -> AppResult<HttpResponse> {
     let mut tx = db.begin().await.unwrap();
-    let site = link_repository::fetch_unscraped_link(&mut tx).await.unwrap();
+    let site = link_repository::fetch_unscraped_link(&mut tx)
+        .await
+        .unwrap();
 
     Ok(HttpResponse::Ok().json(site))
-
 }
