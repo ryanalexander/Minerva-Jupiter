@@ -1,7 +1,9 @@
+use sqlx::postgres::PgQueryResult;
+
 use crate::{infra::error::DbError, model::link_model::Link, Tx};
 
 /// Insert a new link into the link table
-pub async fn insert_link(tx: &mut Tx, link: String) {
+pub async fn insert_link(tx: &mut Tx, link: String) -> Result<PgQueryResult, sqlx::Error> {
     let query = sqlx::query!(
         r#"
         INSERT INTO public."link" (url)
@@ -9,7 +11,7 @@ pub async fn insert_link(tx: &mut Tx, link: String) {
         "#,
         link
     );
-    query.execute(tx).await;
+    return query.execute(tx).await;
 }
 
 /// Fetch a link that has not been scraped within the last day

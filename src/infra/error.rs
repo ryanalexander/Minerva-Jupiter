@@ -5,6 +5,8 @@ use thiserror::Error;
 use super::logging;
 
 #[derive(Debug, Error)]
+
+#[allow(dead_code)]
 pub enum AppError {
     NotFound,
     InternalServerError,
@@ -63,6 +65,7 @@ impl std::fmt::Display for AppError {
 
 /// Error representing a failure at the database layer.
 #[derive(Debug, Error)]
+#[allow(dead_code)]
 pub enum DbError {
     /// Not found.
     #[error("entity not found")]

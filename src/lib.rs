@@ -19,7 +19,7 @@ pub type DbPool = PgPool;
 pub type AppResult<T> = Result<T, AppError>;
 pub type Tx = Transaction<'static, Postgres>;
 
-pub const Version: &str = option_env!("GIT_HASH").unwrap_or("unknown");
+pub const VERSION: &str = option_env!("GIT_HASH").unwrap_or("unknown");
 
 // Test page -- To be removed
 async fn test(_req: HttpRequest) -> HttpResponse {
@@ -37,7 +37,7 @@ async fn test(_req: HttpRequest) -> HttpResponse {
 
 // Start a WebServer
 pub async fn run_webserver(http_listener: TcpListener, db_pool: DbPool) -> anyhow::Result<Server> {
-    logging::log_info(&format!("Starting Jupiter webserver build: {}", Version));
+    logging::log_info(&format!("Starting Jupiter webserver build: {}", VERSION));
 
     let pool = web::Data::new(db_pool);
     let listener = http_listener

@@ -14,8 +14,8 @@ pub fn query_config(cfg: &mut web::ServiceConfig) {
 pub async fn submit_site(db: web::Data<DbPool>, new_site: web::Json<NewSite>) -> AppResult<HttpResponse> {
     let mut tx = db.begin().await.unwrap();
     let site = new_site.into_inner();
-    site_repository::insert_site(&mut tx, site).await;
-    tx.commit().await;
+    site_repository::insert_site(&mut tx, site).await.ok();
+    tx.commit().await.ok();
 
     let response: GenericOK = GenericOK {
         success: true

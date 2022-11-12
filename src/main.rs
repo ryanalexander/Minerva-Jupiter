@@ -8,7 +8,7 @@ use sqlx::{
     postgres::{PgConnectOptions, PgSslMode},
     Pool, Postgres,
 };
-use Jupiter::run_webserver;
+use jupiter::run_webserver;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

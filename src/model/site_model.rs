@@ -8,7 +8,7 @@ pub struct NewSite {
     pub url: String,
 }
 
-impl NewSite {
+impl NewSite { 
     pub fn new(name: String, url: String) -> Self {
         Self {
             name,

@@ -1,10 +1,11 @@
+use sqlx::postgres::PgQueryResult;
+
 use crate::{
-    model::{site_model::{NewSite}},
-    Tx, infra::error::DbError
+    model::{site_model::{NewSite}}, Tx,
 };
 
 /// Insert a new site into the site table
-pub async fn insert_site(tx: &mut Tx, new_site: NewSite) -> Result<(), DbError> {
+pub async fn insert_site(tx: &mut Tx, new_site: NewSite) -> Result<PgQueryResult, sqlx::Error> {
     let query = sqlx::query!(
         r#"
         INSERT INTO public."site" (name, url)
@@ -16,7 +17,5 @@ pub async fn insert_site(tx: &mut Tx, new_site: NewSite) -> Result<(), DbError> 
 
     println!("Inserting site: {}", new_site.url);
 
-    query.execute(tx).await;
-
-    Ok(())
+    return query.execute(tx).await;
 }
