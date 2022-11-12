@@ -4,7 +4,7 @@ use crate::{infra::error::DbError, model::link_model::Link, Tx};
 pub async fn insert_link(tx: &mut Tx, link: String) {
     let query = sqlx::query!(
         r#"
-        INSERT INTO public."Link" (url)
+        INSERT INTO public."link" (url)
         VALUES ($1)
         "#,
         link
@@ -16,6 +16,13 @@ pub async fn insert_link(tx: &mut Tx, link: String) {
 pub async fn fetch_unscraped_link(tx: &mut Tx) -> Result<Link, DbError> {
     sqlx::query_as!(
         Link,
-        r#"SELECT * FROM public."Link" WHERE scraped = false OR CURRENT_TIMESTAMP - "lastScraped" > '1 day'::interval ORDER BY scraped LIMIT 1;"#,
+        r#"SELECT * FROM public."link" WHERE scraped = false OR CURRENT_TIMESTAMP - "last_scraped" > '1 day'::interval ORDER BY scraped LIMIT 1;"#,
+    ).fetch_one(tx).await.map_err(DbError::from)
+}
+
+pub async fn fetch_siteless_link(tx: &mut Tx) -> Result<Link, DbError> {
+    sqlx::query_as!(
+        Link,
+        r#"SELECT * FROM public."link" WHERE "site_id" IS NULL ORDER BY scraped LIMIT 1;"#,
     ).fetch_one(tx).await.map_err(DbError::from)
 }
