@@ -47,6 +47,7 @@ pub async fn run_webserver(http_listener: TcpListener, db_pool: DbPool) -> anyho
             // Dynamic paths
             .configure(routes::workers::page_query::query_config)
             .configure(routes::workers::page_submit::query_config)
+            .configure(routes::workers::site_submit::query_config)
     }).listen(http_listener)?.run();
 
     logging::log_success(&format!("Jupiter server now listening on port {}", listener.local_addr().unwrap().port()));
