@@ -1,18 +1,6 @@
 {
   "db": "PostgreSQL",
-  "2771a794a4aeac51ab48c90b14cb00f6e8115061a731ba7a5cda1ad352199827": {
-    "describe": {
-      "columns": [],
-      "nullable": [],
-      "parameters": {
-        "Left": [
-          "Text"
-        ]
-      }
-    },
-    "query": "\n        INSERT INTO public.\"Link\" (url)\n        VALUES ($1)\n        "
-  },
-  "ab6319733fa0b30847cc8ce30ae4acef96c5557787bb3074ad01471c0e077f6d": {
+  "21c1a20262aae69c46b935d499eb9e60f8232bff77fb4bf4287aea18eb8cc02c": {
     "describe": {
       "columns": [
         {
@@ -26,27 +14,27 @@
           "type_info": "Text"
         },
         {
-          "name": "createdAt",
+          "name": "created_at",
           "ordinal": 2,
           "type_info": "Timestamp"
         },
         {
-          "name": "updatedAt",
+          "name": "updated_at",
           "ordinal": 3,
           "type_info": "Timestamp"
         },
         {
-          "name": "lastScraped",
-          "ordinal": 4,
-          "type_info": "Timestamp"
-        },
-        {
           "name": "scraped",
-          "ordinal": 5,
+          "ordinal": 4,
           "type_info": "Bool"
         },
         {
-          "name": "siteId",
+          "name": "last_scraped",
+          "ordinal": 5,
+          "type_info": "Timestamp"
+        },
+        {
+          "name": "site_id",
           "ordinal": 6,
           "type_info": "Int4"
         }
@@ -56,14 +44,93 @@
         false,
         false,
         false,
-        true,
         false,
+        true,
         true
       ],
       "parameters": {
         "Left": []
       }
     },
-    "query": "SELECT * FROM public.\"Link\" WHERE scraped = false OR CURRENT_TIMESTAMP - \"lastScraped\" > '1 day'::interval ORDER BY scraped LIMIT 1;"
+    "query": "SELECT * FROM public.\"link\" WHERE \"site_id\" IS NULL ORDER BY scraped LIMIT 1;"
+  },
+  "431873889ac20cac13e793922176a6c840a89ea0df3696f3495351892fa58ae2": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "url",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "created_at",
+          "ordinal": 2,
+          "type_info": "Timestamp"
+        },
+        {
+          "name": "updated_at",
+          "ordinal": 3,
+          "type_info": "Timestamp"
+        },
+        {
+          "name": "scraped",
+          "ordinal": 4,
+          "type_info": "Bool"
+        },
+        {
+          "name": "last_scraped",
+          "ordinal": 5,
+          "type_info": "Timestamp"
+        },
+        {
+          "name": "site_id",
+          "ordinal": 6,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "SELECT * FROM public.\"link\" WHERE scraped = false OR CURRENT_TIMESTAMP - \"last_scraped\" > '1 day'::interval ORDER BY scraped LIMIT 1;"
+  },
+  "b8e732543190abce92fe772187d53a47808bbe979b94f797ce59588cb41bfc4f": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO public.\"link\" (url)\n        VALUES ($1)\n        "
+  },
+  "eacd1e68c7b5f8a3f6070dd269a169729dcbd9425fb844c59005b62d271db710": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO public.\"site\" (name, url)\n        VALUES ($1, $2)\n        "
   }
 }
