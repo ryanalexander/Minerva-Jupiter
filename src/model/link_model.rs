@@ -21,11 +21,11 @@ impl NewLink {
 pub struct Link {
     pub id: i32,
     pub url: String,
-    pub createdAt: NaiveDateTime,
-    pub updatedAt: NaiveDateTime,
-    pub lastScraped: std::option::Option<NaiveDateTime>,
+    pub created_at: NaiveDateTime,
+    pub updated_at: NaiveDateTime,
+    pub last_scraped: std::option::Option<NaiveDateTime>,
     pub scraped: bool,
-    pub siteId: std::option::Option<i32>,
+    pub site_id: std::option::Option<i32>,
 }
 
 impl Link {
@@ -33,11 +33,11 @@ impl Link {
         Self {
             id: 0,
             url,
-            createdAt: chrono::Utc::now().naive_utc(),
-            updatedAt: chrono::Utc::now().naive_utc(),
-            lastScraped: None,
+            created_at: chrono::Utc::now().naive_utc(),
+            updated_at: chrono::Utc::now().naive_utc(),
+            last_scraped: None,
             scraped: false,
-            siteId: Some(0),
+            site_id: Some(0),
         }
     }
 
