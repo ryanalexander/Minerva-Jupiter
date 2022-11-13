@@ -13,11 +13,19 @@ impl NewLink {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Domain {
+    pub domain: std::option::Option<String>
+}
+
+
+
 /// Existing link
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Link {
     pub id: i32,
     pub url: String,
+    pub domain: std::option::Option<String>,
     pub created_at: NaiveDateTime,
     pub updated_at: NaiveDateTime,
     pub last_scraped: std::option::Option<NaiveDateTime>,
@@ -30,6 +38,7 @@ impl Link {
         Self {
             id: 0,
             url,
+            domain: None,
             created_at: chrono::Utc::now().naive_utc(),
             updated_at: chrono::Utc::now().naive_utc(),
             last_scraped: None,
