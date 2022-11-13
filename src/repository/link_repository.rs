@@ -1,6 +1,6 @@
 use sqlx::postgres::PgQueryResult;
 
-use crate::{infra::error::DbError, model::link_model::Link, Tx};
+use crate::{infra::error::DbError, model::link_model::{Link, Domain}, Tx};
 
 /// Insert a new link into the link table
 pub async fn insert_link(tx: &mut Tx, link: String) -> Result<PgQueryResult, sqlx::Error> {
@@ -22,9 +22,9 @@ pub async fn fetch_unscraped_link(tx: &mut Tx) -> Result<Link, DbError> {
     ).fetch_one(tx).await.map_err(DbError::from)
 }
 
-pub async fn fetch_siteless_link(tx: &mut Tx) -> Result<Link, DbError> {
+pub async fn fetch_siteless_link(tx: &mut Tx) -> Result<Domain, DbError> {
     sqlx::query_as!(
-        Link,
-        r#"SELECT * FROM public."link" WHERE "site_id" IS NULL ORDER BY scraped LIMIT 1;"#,
+        Domain,
+        r#"SELECT DISTINCT domain FROM link l1 LEFT JOIN site s1 ON s1.url = l1.domain WHERE s1.url IS NULL LIMIT 1;"#,
     ).fetch_one(tx).await.map_err(DbError::from)
 }
