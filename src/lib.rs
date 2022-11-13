@@ -54,6 +54,7 @@ pub async fn run_webserver(http_listener: TcpListener, db_pool: DbPool) -> anyho
             .configure(routes::workers::page_query::query_config)
             .configure(routes::workers::page_submit::query_config)
             .configure(routes::workers::site_submit::query_config)
+            .configure(routes::workers::site_request::query_config)
         })
         .listen(http_listener)?
         .run();
