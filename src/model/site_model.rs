@@ -6,6 +6,7 @@ use serde::{Serialize, Deserialize};
 pub struct NewSite {
     pub name: String,
     pub url: String,
+    pub last_online: Option<NaiveDateTime>,
 }
 
 impl NewSite { 
@@ -13,6 +14,7 @@ impl NewSite {
         Self {
             name,
             url,
+            last_online: Some(chrono::Utc::now().naive_utc())
         }
     }
 }

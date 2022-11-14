@@ -22,9 +22,10 @@ pub async fn fetch_unscraped_link(tx: &mut Tx) -> Result<Link, DbError> {
     ).fetch_one(tx).await.map_err(DbError::from)
 }
 
-pub async fn fetch_siteless_link(tx: &mut Tx) -> Result<Domain, DbError> {
+pub async fn fetch_siteless_link(tx: &mut Tx, count: i64) -> Result<Vec<Domain>, DbError> {
     sqlx::query_as!(
         Domain,
-        r#"SELECT DISTINCT domain FROM link l1 LEFT JOIN site s1 ON s1.url = l1.domain WHERE s1.url IS NULL LIMIT 1;"#,
-    ).fetch_one(tx).await.map_err(DbError::from)
+        r#"SELECT DISTINCT domain FROM link l1 LEFT JOIN site s1 ON s1.url = l1.domain WHERE s1.url IS NULL LIMIT $1;"#,
+        count
+    ).fetch_all(tx).await.map_err(DbError::from)
 }

@@ -1,4 +1,4 @@
-use actix_web::post;
+use actix_web::{post};
 use actix_web::{web, HttpResponse};
 use crate::DbPool;
 use crate::model::site_model::NewSite;
@@ -10,11 +10,18 @@ pub fn query_config(cfg: &mut web::ServiceConfig) {
     cfg.service(submit_site);
 }
 
+// new_site: web::Json<Vec<NewSite>>
+
 #[post("/workers/site/submit")]
-pub async fn submit_site(db: web::Data<DbPool>, new_site: web::Json<NewSite>) -> AppResult<HttpResponse> {
+pub async fn submit_site(db: web::Data<DbPool>, json: web::Json<Vec<NewSite>>) -> AppResult<HttpResponse> {
+
+    // print post data
+
     let mut tx = db.begin().await.unwrap();
-    let site = new_site.into_inner();
-    site_repository::insert_site(&mut tx, site).await.ok();
+    for site in json.iter() {
+        let site = site.clone();
+        site_repository::insert_site(&mut tx, site).await.unwrap();
+    }
     tx.commit().await.ok();
 
     let response: GenericOK = GenericOK {
