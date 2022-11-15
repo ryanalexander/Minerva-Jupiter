@@ -60,19 +60,7 @@
     },
     "query": "SELECT * FROM public.\"link\" WHERE scraped = false OR CURRENT_TIMESTAMP - \"last_scraped\" > '1 day'::interval ORDER BY scraped LIMIT 1;"
   },
-  "b8e732543190abce92fe772187d53a47808bbe979b94f797ce59588cb41bfc4f": {
-    "describe": {
-      "columns": [],
-      "nullable": [],
-      "parameters": {
-        "Left": [
-          "Text"
-        ]
-      }
-    },
-    "query": "\n        INSERT INTO public.\"link\" (url)\n        VALUES ($1)\n        "
-  },
-  "b9575ebf1066718f7ead6e354025420c0bfe42613315ba3463c2f78c648a0847": {
+  "a09926e72d7174a60046fc20282855092f124d8aa6d7dbcbb9c9c079ae840549": {
     "describe": {
       "columns": [
         {
@@ -85,10 +73,24 @@
         true
       ],
       "parameters": {
-        "Left": []
+        "Left": [
+          "Int8"
+        ]
       }
     },
-    "query": "SELECT DISTINCT domain FROM link l1 LEFT JOIN site s1 ON s1.url = l1.domain WHERE s1.url IS NULL LIMIT 1;"
+    "query": "SELECT DISTINCT domain FROM link l1 LEFT JOIN site s1 ON s1.url = l1.domain WHERE s1.url IS NULL LIMIT $1;"
+  },
+  "b8e732543190abce92fe772187d53a47808bbe979b94f797ce59588cb41bfc4f": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO public.\"link\" (url)\n        VALUES ($1)\n        "
   },
   "eacd1e68c7b5f8a3f6070dd269a169729dcbd9425fb844c59005b62d271db710": {
     "describe": {
