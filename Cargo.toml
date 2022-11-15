@@ -19,3 +19,7 @@ thiserror = "1.0.37"
 
 [alias]
 prisma = "run --bin prisma --"
+
+[[bin]]
+name = "jupiter"
+path = "src/main.rs"

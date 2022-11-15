@@ -1,8 +1,14 @@
-# Bundle Stage
-FROM debian:buster-slim
-RUN apt-get update && apt-get install -y ca-certificates
-RUN cargo install --locked --path .
-COPY --from=builder /usr/local/cargo/bin/minerva-jupiter ./
+# Build
+FROM rustlang/rust:nightly-slim AS builder
+USER 0:0
+WORKDIR /home/rust/src
 
-# Final Stage
-CMD ["./minerva-jupiter"]
+# Bundle
+RUN apt-get update && apt-get install -y libssl-dev pkg-config
+
+# Final
+COPY Cargo.toml Cargo.lock ./
+COPY . .
+RUN cargo build --locked --release
+
+CMD ["./target/release/jupiter"]
