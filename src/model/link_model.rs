@@ -31,6 +31,7 @@ pub struct Link {
     pub last_scraped: std::option::Option<NaiveDateTime>,
     pub scraped: bool,
     pub site_id: std::option::Option<i32>,
+    pub network: std::option::Option<std::string::String>,
 }
 
 impl Link {
@@ -44,6 +45,7 @@ impl Link {
             last_scraped: None,
             scraped: false,
             site_id: Some(0),
+            network: None,
         }
     }
 
